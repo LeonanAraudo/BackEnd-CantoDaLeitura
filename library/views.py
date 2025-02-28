@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.response import Response
@@ -27,6 +27,14 @@ class AuthorViewSet(viewsets.ViewSet):
         authorsTop = Author.objects.annotate(total_livros=Count('book')).order_by('-total_livros')[:5]
         serializer = AuthorSerializer(authorsTop, many=True)
         return Response(serializer.data)
+    
+    def destroy(self, request, pk=None):
+        try:
+            author = Author.objects.get(pk=pk)
+            author.delete()
+            return Response({"message": "Autor deletado com sucesso"}, status=status.HTTP_204_NO_CONTENT)
+        except Author.DoesNotExist:
+            return Response({"error": "Autor não encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
 class BookViewSet(viewsets.ViewSet):
 
@@ -54,4 +62,11 @@ class BookViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
-
+    
+    def destroy(self, request, pk=None):  
+        try:
+            book = Book.objects.get(pk=pk)
+            book.delete()
+            return Response({"message": "Livro deletado com sucesso"}, status=status.HTTP_204_NO_CONTENT)
+        except Book.DoesNotExist:
+            return Response({"error": "Livro não encontrado"}, status=status.HTTP_404_NOT_FOUND)
