@@ -28,14 +28,6 @@ class AuthorViewSet(viewsets.ViewSet):
         serializer = AuthorSerializer(authorsTop, many=True)
         return Response(serializer.data)
     
-    def destroy(self, request, pk=None):
-        try:
-            author = Author.objects.get(pk=pk)
-            author.delete()
-            return Response({"message": "Autor deletado com sucesso"}, status=status.HTTP_204_NO_CONTENT)
-        except Author.DoesNotExist:
-            return Response({"error": "Autor não encontrado"}, status=status.HTTP_404_NOT_FOUND)
-
 class BookViewSet(viewsets.ViewSet):
 
     def list(self, request):
@@ -63,10 +55,3 @@ class BookViewSet(viewsets.ViewSet):
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
     
-    def destroy(self, request, pk=None):  
-        try:
-            book = Book.objects.get(pk=pk)
-            book.delete()
-            return Response({"message": "Livro deletado com sucesso"}, status=status.HTTP_204_NO_CONTENT)
-        except Book.DoesNotExist:
-            return Response({"error": "Livro não encontrado"}, status=status.HTTP_404_NOT_FOUND)
