@@ -24,7 +24,7 @@ class AuthorViewSet(viewsets.ViewSet):
         return Response(serializer.errors, status=400)
     
     def requestTopAuthors(self, request):
-        authorsTop = Author.objects.annotate(total_livros=Count('book')).order_by('-total_livros')[:10]
+        authorsTop = Author.objects.annotate(total_livros=Count('book')).order_by('-total_livros')[:5]
         serializer = AuthorSerializer(authorsTop, many=True)
         return Response(serializer.data)
 
