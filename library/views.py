@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.response import Response
+from django.db.models import Count
 
 class AuthorViewSet(viewsets.ViewSet):
 
@@ -20,10 +21,15 @@ class AuthorViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)  
-        return Response(serializer.errors, status=400) 
+        return Response(serializer.errors, status=400)
+    
+    def requestTopAuthors(self, request):
+        authorsTop = Author.objects.annotate(total_livros=Count('book')).order_by('-total_livros')[:10]
+        serializer = AuthorSerializer(authorsTop, many=True)
+        return Response(serializer.data)
 
 class BookViewSet(viewsets.ViewSet):
-    
+
     def list(self, request):
         books = Book.objects.all()
         serializer = BookSerializer(books, many=True)
