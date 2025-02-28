@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.response import Response
@@ -27,7 +27,7 @@ class AuthorViewSet(viewsets.ViewSet):
         authorsTop = Author.objects.annotate(total_livros=Count('book')).order_by('-total_livros')[:5]
         serializer = AuthorSerializer(authorsTop, many=True)
         return Response(serializer.data)
-    
+
 class BookViewSet(viewsets.ViewSet):
 
     def list(self, request):
@@ -54,4 +54,4 @@ class BookViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
-    
+
