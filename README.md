@@ -2,6 +2,8 @@
 
 Sistema de gerenciamento de biblioteca desenvolvido em Django com API REST.
 
+Repositório frontend: https://github.com/LeonanAraudo/FrontEnd-CantoDaLeitura
+
 ## 🚀 Tecnologias Utilizadas
 
 - **Django 4.x** - Framework web Python
