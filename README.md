@@ -73,13 +73,6 @@ myproject/
 └── Dockerfile              # Imagem Docker
 ```
 
-## 📚 Padrões de Projeto
-
-- **ViewSets** - Organização de views relacionadas em classes
-- **Model Serializers** - Serialização automática de modelos Django
-- **REST API** - Arquitetura RESTful com endpoints padronizados
-- **MVC/MTV** - Padrão Django (Model-Template-View)
-
 ## 🔌 Endpoints da API
 
 ### Autores
@@ -93,17 +86,6 @@ myproject/
 - `GET /books/{id}/` - Obtém livro específico
 - `POST /books/` - Cria novo livro
 - `PATCH /books/{id}/` - Atualiza livro parcialmente
-
-## 🗄️ Modelos de Dados
-
-- **Author**: Nome do autor
-- **Book**: Título, data de publicação e autor (relacionamento FK)
-
-## ⚙️ Configurações Importantes
-
-- **CORS**: Habilitado para todas as origens (desenvolvimento)
-- **Database**: SQLite por padrão, configurável via variável de ambiente
-- **Porta**: 8000 (configurável no Docker)
 
 ## 🚀 Executando o Projeto
 
